@@ -1698,7 +1698,7 @@ MIPSEL_SETTINGS = replace(MIPS_SETTINGS, name="mipsel", big_endian=False)
 ARM32_SETTINGS = ArchSettings(
     name="arm32",
     re_int=re.compile(r"[0-9]+"),
-    re_comment=re.compile(r"(<.*?>|//.*$)"),
+    re_comment=re.compile(r"(;.*|<.*?>|//.*$)"),
     # Includes:
     #   - General purpose registers: r0..13
     #   - Frame pointer registers: lr (r14), pc (r15)
@@ -1717,6 +1717,8 @@ ARM32_SETTINGS = ArchSettings(
 )
 
 ARMEL_SETTINGS = replace(ARM32_SETTINGS, name="armel", big_endian=False)
+
+THUMB_SETTINGS = replace(ARM32_SETTINGS, name="thumb", big_endian=False, arch_flags=['-m', 'armv4t', '-M', 'force-thumb'])
 
 AARCH64_SETTINGS = ArchSettings(
     name="aarch64",
@@ -1754,6 +1756,7 @@ ARCH_SETTINGS = [
     MIPSEL_SETTINGS,
     ARM32_SETTINGS,
     ARMEL_SETTINGS,
+    THUMB_SETTINGS,
     AARCH64_SETTINGS,
     PPC_SETTINGS,
 ]
